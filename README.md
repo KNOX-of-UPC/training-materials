@@ -1,3 +1,8 @@
 # training-materials
 
-lsh
+Preparation training materials for the freshman.
+
+***
+
+By Harrison-LUO
+
