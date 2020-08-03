@@ -156,10 +156,25 @@ p {
 
 ### 背景
 
-
+|**属性**|**属性值**|**用法**|
+|:--:|:--:|:--:|
+|background-image|none、url()|background-image:url(001.jpg);插入背景图片|
+|background-repeat|repeat-x、repeat-y、repeat、no-repeat、round(自适应)|background-repeat:no-repeat;不设置背景图平铺|
+|background-position|left、right、center、top、bottom|background-position:left top;设置背景图在左上角的位置|
+|background|复合属性，将上面属性依次写|background:url(001.png) no-repeat left top;|
 
 ### 边框
 
-
+|**属性**|**属性值**|**用法**|
+|:--:|:--:|:--:|
+|border-style|dotted(点线框)、dashed(虚线框)、solid(实线框)、double(双线框)|border-top-style:dashed;设置上边框为虚线框|
+|border-color|red、blue|border-color:red;设置边框颜色为红色|
+|border-width|具体数值|border-width:10px;边框宽度为10像素|
+|border|复合属性，把上面三个依次写|border:solid red 100px;|
+|border-radius|none、水平半径 垂直半径(只写一个值代表两个数值相等，即四分之一圆角)|border-radius:12px;12像素的圆角边框|
 
 ### 阴影
+
+|**属性**|**属性值**|**用法**|
+|:--:|:--:|:--:|
+|box-shadow|none、(inset内阴影，默认外阴影)、水平偏移、垂直偏移、阴影大小、color|box-shadow:10px 10px 20px red;红色阴影向右下方偏移|
