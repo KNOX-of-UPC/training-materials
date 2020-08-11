@@ -152,7 +152,7 @@ p {
 |:--:|:--:|:--:|
 |text-align|left、right、center、justify|text-align:left;左对齐|
 |vertical-align|auto、top、bottom、middle|vertical-align:middle;垂直居中对齐|
-|line-height|normal(1.2em)、具体数值|line-height:1.5em;行距1.5倍|
+|line-height|normal(1.2em)、具体数值(注意：设置行高前必须先设置字体大小)|line-height:1.5em;行距1.5倍|
 
 ### 背景
 
@@ -178,3 +178,5 @@ p {
 |**属性**|**属性值**|**用法**|
 |:--:|:--:|:--:|
 |box-shadow|none、(inset内阴影，默认外阴影)、水平偏移、垂直偏移、阴影大小、color|box-shadow:10px 10px 20px red;红色阴影向右下方偏移|
+
+**注意：**以上所有复合属性里面，如果存在不需要设置的属性值，最好不要加none，否则会导致属性值失效。
