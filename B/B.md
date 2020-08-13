@@ -130,7 +130,7 @@ p {
 |滚动条|设置滚动条，包括滚动条地不同区域颜色|
 |其他|一些特殊设置，包括鼠标样式、行为、特效、对象缩放|
 
-### 字体
+### 1.字体
 
 **常见属性:**
 
@@ -144,7 +144,7 @@ p {
 |font-style|none、italic、oblique|font-style:none;|
 |font|综合属性，可以按照一定顺序一次填写，各个属性之间用空格分开|font:font-style font-weight font-size line-height font-family;|
 
-### 文本
+### 2.文本
 
 **常见属性：**
 
@@ -154,7 +154,7 @@ p {
 |vertical-align|auto、top、bottom、middle|vertical-align:middle;垂直居中对齐|
 |line-height|normal(1.2em)、具体数值(注意：设置行高前必须先设置字体大小)|line-height:1.5em;行距1.5倍|
 
-### 背景
+### 3.背景
 
 |**属性**|**属性值**|**用法**|
 |:--:|:--:|:--:|
@@ -163,7 +163,7 @@ p {
 |background-position|left、right、center、top、bottom|background-position:left top;设置背景图在左上角的位置|
 |background|复合属性，将上面属性依次写|background:url(001.png) no-repeat left top;|
 
-### 边框
+### 4.边框
 
 |**属性**|**属性值**|**用法**|
 |:--:|:--:|:--:|
@@ -173,10 +173,19 @@ p {
 |border|复合属性，把上面三个依次写|border:solid red 100px;|
 |border-radius|none、水平半径 垂直半径(只写一个值代表两个数值相等，即四分之一圆角)|border-radius:12px;12像素的圆角边框|
 
-### 阴影
+### 5.阴影
 
 |**属性**|**属性值**|**用法**|
 |:--:|:--:|:--:|
 |box-shadow|none、(inset内阴影，默认外阴影)、水平偏移、垂直偏移、阴影大小、color|box-shadow:10px 10px 20px red;红色阴影向右下方偏移|
 
-**注意：**以上所有复合属性里面，如果存在不需要设置的属性值，最好不要加none，否则会导致属性值失效。
+**注意：**  
+
+1、以上所有复合属性里面，如果存在不需要设置的属性值，最好不要加none，否则会导致属性值失效。  
+2、浏览器引擎是按照从上到下的顺序来解析网页源代码的，所以在写css时，要注意样式的顺序，比如如果用em为单位设置行高时，要先设置字体的大小，才能接着设置文本行高。
+
+---
+
+作者：[@Shirley-zzb][address]
+
+[address]:https://github.com/Shirley-zzb
