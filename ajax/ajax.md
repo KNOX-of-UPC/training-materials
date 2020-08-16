@@ -227,7 +227,7 @@ $(window).scroll(function () {
 function getData(skip, n, head = false) { //参数为需要跳过的数目,获取的数目
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:5000/",
+        url: "http://182.92.75.70:5000/",
         contentType: "json",
         data: JSON.stringify({ 'provinceName': '', 'cityName': '', 'skip': skip, 'n': n }),
         dataType: "json",
