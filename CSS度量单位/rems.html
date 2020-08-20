@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        .ems li {
+            font-size: 1.3em;
+        }
+
+        .rems li {
+            font-size: 1.3rem;
+        }
+
+
+        .wrapper {
+            width: 400px;
+            border: 5px solid rebeccapurple;
+        }
+
+        .px {
+            width: 200px;
+        }
+
+        .percent {
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="ems">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three
+            <ul>
+                <li>Three A</li>
+                <li>Three B
+                    <ul>
+                        <li>Three B 2</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="rems">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three
+            <ul>
+                <li>Three A</li>
+                <li>Three B
+                    <ul>
+                        <li>Three B 2</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+
+
+    <div class="box px">I am 200px wide</div>
+    <div class="box percent">I am 40% wide</div>
+    <div class="wrapper">
+        <div class="box px">I am 200px wide</div>
+        <div class="box percent">I am 40% wide</div>
+    </div>
+
+</body>
+
+</html>
