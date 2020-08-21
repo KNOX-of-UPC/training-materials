@@ -1,0 +1,45 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+
+.margin-normal{
+    height: 200px;
+    margin: 40px;
+    background-color: lemonchiffon;
+}
+
+#shortcut{
+    width: 200px;
+    margin: 10px 20px 30px 40px;
+    border: 5px solid rgb(28, 85, 28);
+}
+
+#detailed{
+    width: 100px;
+    margin-top: 80px;
+    margin-right: 40px;
+    margin-bottom: 60px;
+    margin-left: 80px;
+    border: 5px solid rgb(115, 167, 38);
+}
+
+.padding-inline{
+    border: 2px solid rgb(223, 169, 98);
+    height: 200px;
+    background-color: burlywood;
+}
+
+#block{
+    margin: 10px;
+    border: 3px solid rgb(255, 227, 135);
+    padding: 10px;
+    padding-left: 50px;
+}
+
+#inline{
+    margin: 10px;
+    border: 3px solid rgb(255, 166, 0);
+    padding: 10px;
+    padding-left: 50px;
+}

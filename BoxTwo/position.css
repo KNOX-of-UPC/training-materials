@@ -1,0 +1,59 @@
+.normal{
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+    background-color: cadetblue;
+}
+
+.fixed{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+
+    width: 100px;
+    height: 100px;
+    background-color: greenyellow;
+}
+
+.grand {
+    position: relative;
+
+    width: 400px;
+    height: 400px;
+    margin: 10px;
+    background-color: rgb(26, 90, 26);
+}
+.parent {
+    width: 250px;
+    height: 250px;
+    background-color: rgb(41, 150, 41);
+}
+.child1 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    width: 100px;
+    height: 100px;
+    background-color: rgb(120, 172, 71);
+    z-index: 2;
+}
+
+.child2{
+    position: absolute;
+    bottom: 0;
+    right: 80px;
+
+    width: 100px;
+    height: 100px;
+    background-color: rgb(98, 141, 58);
+}
+
+.relative{
+    position: relative;
+    left: 350px;
+
+    width: 150px;
+    height: 150px;
+    background-color: darkseagreen;
+}
