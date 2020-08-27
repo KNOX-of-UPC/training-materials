@@ -19,7 +19,19 @@
 * [ ] **Markdown All in One** (不装)
 * [ ] **Markdown** (可选)
 
-### 3. 样式
+### 3. 配置 (settings.json)
+
+**markdownlint**:
+
+```json
+"markdownlint.config": {
+    "MD013": false,
+    "no-duplicate-header": false,
+    "no-inline-html": false,
+}
+```
+
+### 4. 样式
 
 暂选原生预览（Markdown Preview Enhanced），但考虑到原生预览的某些地方的确不太美观，因此还望各位积极献策，以求后期改换。
 
@@ -107,6 +119,6 @@
 关于最终的写作规范，需在整理过程中博采众议，逐步加以完善，因此还望各位定期查看本文档的最新版本，并及时遵照调整。
 
 作者 [@Morilence][home]  
-2020 年 07月 31日
+2020 年 08月 17日
 
 [home]: https://github.com/Morilence

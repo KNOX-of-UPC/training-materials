@@ -1,0 +1,408 @@
+# 排版上下文(FC)
+
+## 1. 块级排版上下文(BFC)
+
+### 1.1 BFC 定义
+
+BFC(Block formatting context)直译为"块级格式化上下文"。它是一个独立的渲染区域，只有Block-level box（块级元素）参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干.
+
+通俗地来说：创建了 BFC的元素就是一个独立的盒子，里面的子元素不会在布局上
+影响外面的元素（里面怎么布局都不会影响外部），BFC任然属于文档中的普通流
+
+### 1.2BFC的生成
+
+知道了BFC怎么触发BFC
+满足以下条件之一都可以触发BFC，变身为BFC
+
+1. 根元素
+2. float属性不为none
+3. position不为static和relative
+4. overflow不为visible
+5. display为inline-block, table-cell, table-caption, flex, inline-flex
+
+> 你会发现BFC无处不在，只是自己用的时候不知道而已
+
+### 1.3 BFC布局规则
+
+变身为BFC后有什么特性呢，以下：
+
+1. 内部的Box会在垂直方向，一个接一个地放置。
+2. Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠
+3. 每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+4. BFC的区域不会与float box重叠。
+5. BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
+6. 计算BFC的高度时，浮动元素也参与计算
+
+### 1.4 BFC作用
+
+#### 1.4.1 防止外边距重叠
+
+bfc导致的属于同一个bfc中的子元素的margin重叠(Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠)
+
+问题：由图可以看到，String1和String2 之间只有20px的margin，按理来说应该是40px，但这是在bfc中导致了他们的margin重叠
+
+<style>
+.container1{
+        /*通过overflow：hidden可以创建bfc*/
+        overflow: hidden;
+        background-color: red;
+        width: 300px;
+    }
+    .sub1{
+        margin: 20px 0px;
+        background-color: #dea;
+    }
+</style>
+<div class="container1">
+        <div class="sub1">String1</div>
+        <div class="sub1">String2</div>
+</div>
+
+代码：
+
+~~~html
+<style>
+.container1{
+        /* 通过overflow：hidden可以创建bfc */
+        overflow: hidden;
+        background-color: red;
+        width: 300px;
+    }
+    .sub1{
+        margin: 20px 0px;
+        background-color: #dea;
+    }
+</style>
+<div class="container1">
+        <div class="sub1">String1</div>
+        <div class="sub1">String2</div>
+</div>
+~~~
+
+解决方法：我们可以在div外面包裹一层容器，并触发该容器生成一个BFC。那么两个div便不属于同一个BFC，就不会发生margin重叠了。
+
+<style>
+    .newbfc{
+            overflow: hidden;
+    }
+</style>
+<div class="container1">
+        <div class="sub1">String1</div>
+        <div class="newbfc"><div class="sub1">String2</div></div>
+</div>
+
+代码：
+
+~~~html
+<style>
+    .newbfc{
+            overflow: hidden;
+    }
+</style>
+<div class="container1">
+        <div class="sub1">String1</div>
+        <div class="newbfc"><div class="sub1">String2</div></div>
+</div>
+~~~
+
+#### 1.4.2 清除浮动
+
+问题：当元素的子元素都浮动后，会出现高度坍塌的现象，即父容器的高度不会被撑开
+
+<style>
+    .pre2{
+        width: 200px;
+        border: 2px solid red;
+    }
+    .float1,.float2{
+        width: 100px;
+        height: 100px;
+        float: left;
+    }
+    .float1{
+        background-color: #dee;
+    }
+    .float2{
+        background-color: #dcc;
+    }
+</style>
+<div class="pre2">
+        <div class="float1"></div>
+        <div class="float2"></div>
+</div>
+
+代码：
+
+~~~html
+<style>
+    .pre2{
+        width: 200px;
+        border: 2px solid red;
+    }
+    .float1,.float2{
+        width: 100px;
+        height: 100px;
+        float: left;
+    }
+    .float1{
+        background-color: #dee;
+    }
+    .float2{
+        background-color: #dcc;
+    }
+</style>
+<div class="pre2">
+        <div class="float1"></div>
+        <div class="float2"></div>
+</div>
+~~~
+
+解决方法：
+
+bfc的规则：计算BFC的高度时，浮动元素也参与计算所以只要将父容器设置为bfc就可以把子元素包含进去：
+这个容器将包含浮动的子元素，它的高度将扩展到可以包含它的子元素，在这个BFC，这些元素将会回到页面的常规文档流。
+<style>
+    .pre2{
+        width: 200px;
+        border: 2px solid red;
+        /*设置overflow*/
+        overflow:hidden;
+    }
+    .float1,.float2{
+        width: 100px;
+        height: 100px;
+        float: left;
+    }
+    .float1{
+        background-color: #dee;
+    }
+    .float2{
+        background-color: #dcc;
+    }
+</style>
+<div class="pre2">
+        <div class="float1"></div>
+        <div class="float2"></div>
+</div>
+
+代码：
+
+~~~html
+.pre2{
+        width: 200px;
+        border: 2px solid red;
+        /* 设置overflow*/
+        overflow:hidden;
+    }
+~~~
+
+#### 1.4.3 解决布局：防止文字环绕
+
+<style>
+.container2{
+        overflow: hidden;
+        width: 200px;
+    }
+    .box{
+        float: left;
+        width: 100px;
+        height: 30px;
+        background-color: #daa;
+    }
+</style>
+
+<div class="container2">
+        <div class="box"></div>
+        <p style="background-color: #eea">sdfadsfdff fffffffds fsfffff sfd  fsdsdfsdf fffffff</p>
+</div>
+代码：
+
+~~~html
+<style>
+.container2{
+        overflow: hidden;
+        width: 200px;
+    }
+    .box{
+        float: left;
+        width: 100px;
+        height: 30px;
+        background-color: #daa;
+    }
+</style>
+
+<div class="container2">
+        <div class="box"></div>
+        <p style="background-color: #eea">sdfadsfdff fffffffds fsfffff sfd  fsdsdfsdf fffffff</p>
+</div>
+~~~
+
+这个p元素并没有移动，但是它却出现在浮动元素的下方。p元素的line boxes（指的是文本行）进行了移位。此处line boxes的水平收缩为浮动元素提供了空间。
+
+> bfc的规则：每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+
+解决这个问题只要将p元素添加overflow：hidden使其成为一个新的bfc就可以了
+<style>
+    p{
+        overflow: hidden;
+    }
+    .container2{
+        overflow: hidden;
+        width: 200px;
+    }
+    .box{
+        float: left;
+        width: 100px;
+        height: 30px;
+        background-color: #daa;
+    }
+</style>
+
+<div class="container2">
+        <div class="box"></div>
+        <p style="background-color: #eea">sdfadsfdff fffffffds fsfffff sfd  fsdsdfsdf fffffff</p>
+</div>
+
+## 2. 内联排版上下文(IFC)
+
+* 符合以下条件即会生成一个IFC
+
+    块级元素中仅包含内联级别元素
+
+形成条件非常简单，需要注意的是当IFC中有块级元素插入时，会产生两个匿名块将父元素分割开来，产生两个IFC，这里不做过多介绍。
+
+* IFC布局规则
+
+1. 子元素水平方向横向排列，并且垂直方向起点为元素顶部。
+2. 子元素只会计算横向样式空间，【padding、border、margin】，垂直方向样式空间不会被计算，【padding、border、margin】。
+3. 在垂直方向上，子元素会以不同形式来对齐（vertical-align）
+4. 能把在一行上的框都完全包含进去的一个矩形区域，被称为该行的行框（line box）。行框的宽度是由包含块（containing box）和与其中的浮动来决定。
+5. IFC中的“line box”一般左右边贴紧其包含块，但float元素会优先排列。
+6. IFC中的“line box”高度由 CSS 行高计算规则来确定，同个IFC下的多个line box高度可能会不同。
+7. 当 inline-level boxes的总宽度少于包含它们的line box时，其水平渲染规则由 text-align 属性值来决定。
+8. 当一个“inline box”超过父元素的宽度时，它会被分割成多个boxes，这些 oxes 分布在多个“line box”中。如果子元素未设置强制换行的情况下，“inline box”将不可被分割，将会溢出父元素。
+
+来几个例子？
+
+* 上下间距不生效
+
+<style>
+.warp1 { border: 1px solid red; display: inline-block; }
+.text1 { margin: 20px; background: green; }
+</style>
+
+<div class="warp1">
+    <span class="text1">文本一</span>
+    <span class="text1">文本二</span>
+</div>
+
+代码：
+
+~~~html
+<style>
+.warp1 { border: 1px solid red; display: inline-block; }
+.text1 { margin: 20px; background: green; }
+</style>
+
+<div class="warp1">
+    <span class="text1">文本一</span>
+    <span class="text1">文本二</span>
+</div>
+~~~
+
+* 多个元素水平居中
+水平排列规则根据IFC容器的text-align值来排列，可以用来实现多个子元素的水平居中。
+
+<style>
+.warp2 { border: 1px solid red; width: 200px; text-align: center; }
+.text2 { background: green; }
+</style>
+
+<div class="warp2">
+    <span class="text2">文本一</span>
+    <span class="text2">文本二</span>
+</div>
+
+代码：
+
+~~~html
+<style>
+.warp2 { border: 1px solid red; width: 200px; text-align: center; }
+.text2 { background: green; }
+</style>
+
+<div class="warp2">
+    <span class="text2">文本一</span>
+    <span class="text2">文本二</span>
+</div>
+~~~
+
+* float元素优先排列
+
+<style>
+.warp3 { border: 1px solid red; width: 200px; }
+.text3 { background: green; }
+.f-l { float: left; }
+</style>
+<div class="warp3">
+    <span class="text3">这是文本1</span>
+    <span class="text3">这是文本2</span>
+    <span class="text3 f-l">这是文本3</span>
+    <span class="text3">这是文本4</span>
+</div>
+
+> "这是文本3"优先排列
+
+代码：
+
+~~~html
+<style>
+.warp3 { border: 1px solid red; width: 200px; }
+.text3 { background: green; }
+.f-l { float: left; }
+</style>
+<div class="warp3">
+    <span class="text3">这是文本1</span>
+    <span class="text3">这是文本2</span>
+    <span class="text3 f-l">这是文本3</span>
+    <span class="text3">这是文本4</span>
+</div>
+~~~
+
+## 3. 网格排版上下文(GFC)
+
+GFC（GrideLayout formatting contexts）：
+
+直译为"网格布局格式化上下文"（也即是新的布局：display:grid;兼容性问题比较大），当为一个元素设置display值为grid的时候，此元素将会获得一个独立的渲染区域，我们可以通过在网格容器（grid container）上定义网格定义行（grid definition rows）和网格定义列（grid definition columns）属性各在网格项目（grid item）上定义网格行（grid row）和网格列（grid columns）为每一个网格项目（grid item）定义位置和空间。
+
+　　GFC将改变传统的布局模式，他将让布局从一维布局变成了二维布局。简单的说，有了GFC之后，布局不再局限于单个维度了。这个时候你要实现类似九宫格，拼图之类的布局效果显得格外的容易。
+
+>landexiele
+
+指路知乎[GFC]
+
+## 4. 弹性排版上下文(FFC)
+
+FFC(Flex Formatting Contexts)：
+
+CSS3引入了一种新的布局模型——flex布局`display:flex;`display值为`flex`或者`inline-flex`的元素将会生成自适应容器（flex container）。
+flex是flexible box的缩写，一般称之为弹性盒模型。和CSS3其他属性不一样，flexbox并不是一个属性，而是一个模块，包括多个CSS3属性。flex布局提供一种更加有效的方式来进行容器内的项目布局，以适应各种类型的显示设备和各种尺寸的屏幕。
+
+Flex Box 由伸缩容器和伸缩项目组成。通过设置元素的 display 属性为 flex 或 inline-flex 可以得到一个伸缩容器。设置为 flex 的容器被渲染为一个块级元素，而设置为 inline-flex 的容器则渲染为一个行内元素。
+
+　　伸缩容器中的每一个子元素都是一个伸缩项目。伸缩项目可以是任意数量的。伸缩容器外和伸缩项目内的一切元素都不受影响。简单地说，Flexbox 定义了伸缩容器内伸缩项目该如何布局。
+
+* FFC与BFC的区别
+    FFC与BFC有点儿类似，但仍有以下几点区别：
+
+  * Flexbox 不支持 ::first-line 和 ::first-letter 这两种伪元素
+  * vertical-align 对 Flexbox 中的子元素 是没有效果的
+  * float 和 clear 属性对 Flexbox 中的子元素是没有效果的，也不会使子元素脱离文档流(但是对Flexbox 是有效果的！)
+  * 多栏布局（column-*） 在 Flexbox 中也是失效的，就是说我们不能使用多栏布局在 Flexbox 排列其下的子元素
+  * Flexbox 下的子元素不会继承父级容器的宽
+
+作者[@Harrison-LUO][home]
+2020 年 08月 25日
+
+[GFC]:https://zhuanlan.zhihu.com/p/33030746
+[home]:https://github.com/Harrison-LUO
