@@ -42,20 +42,20 @@
 		    }
 		}
 	</script> -->
-	<!-- <script>
+	<script>
 		try{
-		    alert("执行程序");
+		    console.log("执行程序");
 		    var error=new Error("异常");
 		    throw error;
 		}
 		catch(e){
-		    alert("错误名称："+e.name+"\n 错误信息："+e.message);
+		    console.log("错误名称："+e.name+"\n 错误信息："+e.message);
 		}
 		finally{
-		    alert("finally");
+		    console.log("finally");
 		}
-	</script> -->
-	<script>
+	</script>
+	<!-- <script>
 		var bool=true;
 		console.log(typeof(bool));
 		console.log(bool instanceof Boolean);
@@ -66,6 +66,6 @@
 			console.log(a--,--b);
 			document.write(a--,--b,"<br />")
 		}
-	</script>
+	</script> -->
 </body>
 </html>

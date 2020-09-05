@@ -1,4 +1,4 @@
-# JS语法基础
+# JS运算符与基础语句
 
 JavaScript属于C语系范畴，类似语言包括C、C++、C#、Java、Python等。这些语言都具有相同或相似的语法特性，所以在学习时我们可以根据我们学过的语言进行一些对比，快速上手。
 
@@ -234,25 +234,25 @@ try                         //执行语句
 }
 catch(ex)                   //捕获异常
 {
-    alert(ex.number+"\n"+ex.description);
+    console.log(ex.number+"\n"+ex.description);
 }
 finally                     //最后必须执行的语句
 {
-    alert("end");
+    console.log("end");
 }
 ```
 
 ```javascript
 try{
-    alert("执行程序");
+    console.log("执行程序");
     var error=new Error("异常");
     throw error;
 }
 catch(e){
-    alert("错误名称："+e.name+"\n 错误信息："+e.message);
+    console.log("错误名称："+e.name+"\n 错误信息："+e.message);
 }
 finally{
-    alert("finally");
+    console.log("finally");
 }
 ```
 
