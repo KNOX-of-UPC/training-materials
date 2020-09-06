@@ -498,13 +498,13 @@ GFC将改变传统的布局模式，他将让布局从一维布局变成了二�
 
 display属性值设置为为“grid”或者“inline-grid”的容器
 
-### 3.3 `经典` VS `GFC`
+### 3.3 经典 VS GFC
 
 #### 3.3.1 经典布局
 
 CSS
 
-~~~html
+~~~css
 .warp {
     height: 100%;
     display: grid;
@@ -536,7 +536,7 @@ html
 
 CSS
 
-~~~html
+~~~css
 .list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -574,14 +574,18 @@ GFC 效果示意
 
 CSS
 
-~~~html
+~~~css
 .cube {
     display: grid;
     grid-gap: 2px;
     width: 300px; height: 300px;
 }
-.cube div { border: 1px solid grey; }
-.cube .g-1 { grid-column-start: 1; grid-column-end: 3; }
+.cube div {
+    border: 1px solid grey;
+}
+.cube .g-1 {
+    grid-column-start: 1; grid-column-end: 3;
+}
 .cube .g-3 {
     grid-column-start: 2;
     grid-column-end: 4;
@@ -667,7 +671,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * column-reverse：主轴为垂直方向，起点在下沿。
   * 示例代码
 
-~~~html
+~~~css
 .box {
     flex-direction: row | row-reverse | column | column-reverse;
 }
@@ -681,7 +685,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * wrap-reverse：换行，第一行在下方。
   * 示例代码
 
-~~~html
+~~~css
 .box{
     flex-wrap: nowrap | wrap | wrap-reverse;
 }
@@ -691,7 +695,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap
   * 示例代码
 
-~~~html
+~~~css
 .box {
     flex-flow: <flex-direction> <flex-wrap>;
 }
@@ -706,7 +710,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
   * 示例代码
 
-~~~html
+~~~css
 .box {
     justify-content: flex-start | flex-end | center | space-between | space-around;
 }
@@ -721,7 +725,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
   * 示例代码
 
-~~~html
+~~~css
 .box {
     align-items: flex-start | flex-end | center | baseline | stretch;
 }
@@ -737,7 +741,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * stretch（默认值）：轴线占满整个交叉轴。
   * 示例代码
 
-~~~html
+~~~css
 .box {
     align-content: flex-start | flex-end | center | space-between | space-around | stretch;
 }
@@ -749,9 +753,9 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
   * 示例代码
 
-~~~html
+~~~css
 .item {
-  order: <integer>;
+    order: <integer>;
 }
 ~~~
 
@@ -760,9 +764,9 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
   * 示例代码
 
-~~~html
+~~~css
 .item {
-  flex-grow: <number>; /* default 0 */
+    flex-grow: <number>; /* default 0 */
 }
 ~~~
 
@@ -771,9 +775,9 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。负值对该属性无效。
   * 示例代码
 
-~~~html
+~~~css
 .item {
-  flex-shrink: <number>; /* default 1 */
+    flex-shrink: <number>; /* default 1 */
 }
 ~~~
 
@@ -782,9 +786,9 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * 它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。
   * 示例代码
 
-~~~html
+~~~css
 .item {
-  flex-basis: <length> | auto; /* default auto */
+    flex-basis: <length> | auto; /* default auto */
 }
 ~~~
 
@@ -793,9 +797,9 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * 该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
   * 示例代码
 
-~~~html
+~~~css
 .item {
-  flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+    flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
 }
 ~~~
 
@@ -804,17 +808,18 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
   * 该属性可能取6个值，除了auto，其他都与align-items属性完全一致。
   * 示例代码
 
-~~~html
+~~~css
 .item {
-  align-self: auto | flex-start | flex-end | center | baseline | stretch;
+    align-self: auto | flex-start | flex-end | center | baseline | stretch;
 }
 
 ~~~
 
-作者[@Harrison-LUO][home]
+作者[@Harrison-LUO][luo] [@KVM-Explorer][yang]
 2020 年 08月 25日
 
 [GFC]:https://zhuanlan.zhihu.com/p/33030746
 [IFC]:https://techbrood.com/h5b2a?p=css-ifc#ifc-usage
 [Strut]:https://www.w3.org/TR/CSS2/visudet.html#strut
-[home]:https://github.com/Harrison-LUO
+[luo]:https://github.com/Harrison-LUO
+[yang]:https://github.com/KVM-Explorer
