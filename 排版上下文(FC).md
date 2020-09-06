@@ -371,15 +371,128 @@ bfc的规则：计算BFC的高度时，浮动元素也参与计算所以只要�
 
 ## 3. 网格排版上下文(GFC)
 
-GFC（GrideLayout formatting contexts）：
+>由于布局规则及内容过于繁琐，所以在此仅将其与其他对比进行讲解
+
+指路知乎[GFC] 可查看详细参数及技术内容
+
+### 3.1 GFC（GrideLayout formatting contexts）
+
 
 直译为"网格布局格式化上下文"（也即是新的布局：display:grid;兼容性问题比较大），当为一个元素设置display值为grid的时候，此元素将会获得一个独立的渲染区域，我们可以通过在网格容器（grid container）上定义网格定义行（grid definition rows）和网格定义列（grid definition columns）属性各在网格项目（grid item）上定义网格行（grid row）和网格列（grid columns）为每一个网格项目（grid item）定义位置和空间。
 
-　　GFC将改变传统的布局模式，他将让布局从一维布局变成了二维布局。简单的说，有了GFC之后，布局不再局限于单个维度了。这个时候你要实现类似九宫格，拼图之类的布局效果显得格外的容易。
+GFC将改变传统的布局模式，他将让布局从一维布局变成了二维布局。简单的说，有了GFC之后，布局不再局限于单个维度了。这个时候你要实现类似九宫格，拼图之类的布局效果显得格外的容易。
 
->landexiele
+### 3.2 设置条件
 
-指路知乎[GFC]
+display属性值设置为为“grid”或者“inline-grid”的容器
+
+### 3.3 `经典` VS `GFC`
+
+#### 3.3.1 经典布局
+
+CSS
+
+~~~html
+.warp {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 200px calc(100% - 205px);
+    grid-template-rows: 100px calc(100% - 170px) 60px;
+    grid-gap: 5px;
+}
+.warp div { border: 1px solid aquamarine; }
+.warp .g-1 { grid-column-start: 1; grid-column-end: 3; }
+.warp .g-4 { grid-column-start: 1; grid-column-end: 3; }
+~~~
+
+html
+
+~~~html
+<div class="warp">
+    <div class="g-1"></div>
+    <div class="g-2"></div>
+    <div class="g-3"></div>
+    <div class="g-4"></div>
+</div>
+~~~
+
+经典效果展示
+
+#### 3.3.2 GFC实现布局
+
+CSS
+
+~~~html
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;  
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    width: 400px;
+}
+.list div { height: 50px; border: 1px solid grey; }
+~~~
+
+html
+
+~~~html
+<div class="list">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+~~~
+
+显然通过GFC控制排列，代码量也非常的少，也很容易理解。
+
+#### 3.3.3 GFC 任意魔方拼接
+
+通过任意魔方拼接的实例更进一步认识GFC的优势
+
+CSS
+
+~~~html
+.cube { 
+    display: grid; 
+    grid-gap: 2px; 
+    width: 300px; height: 300px;
+}
+.cube div { border: 1px solid grey; }
+.cube .g-1 { grid-column-start: 1; grid-column-end: 3; }
+.cube .g-3 {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+~~~
+
+html
+
+~~~html
+<div class="cube">
+    <div class="g-1"></div>
+    <div class="g-2"></div>
+    <div class="g-3"></div>
+    <div class="g-4"></div>
+    <div class="g-5"></div>
+    <div class="g-6"></div>
+    <div class="g-7"></div>
+</div>
+~~~
+
+效果展示
+
+### 3.4 总结
+
+部分问题的解决用GFC可以轻松实现自由拼接效果话，换成其他方法，一般会使用相对/绝对定位，或者flex来实现自由拼接效果，复杂程度将会提升好几个等级。
+
+此外，FFC能做的事情，通过GFC都能搞定，反过来GFC能做的事通过FFC也能实现。通常弹性布局使用FFC，二维网格布局使用GFC。最后，所有的FFC与GFC也是一个BFC，在遵循自己的规范的情况下，向下兼容BFC规范。
 
 ## 4. 弹性排版上下文(FFC)
 
@@ -391,6 +504,7 @@ flex是flexible box的缩写，一般称之为弹性盒模型。和CSS3其他属
 Flex Box 由伸缩容器和伸缩项目组成。通过设置元素的 display 属性为 flex 或 inline-flex 可以得到一个伸缩容器。设置为 flex 的容器被渲染为一个块级元素，而设置为 inline-flex 的容器则渲染为一个行内元素。
 
 伸缩容器中的每一个子元素都是一个伸缩项目。伸缩项目可以是任意数量的。伸缩容器外和伸缩项目内的一切元素都不受影响。简单地说，Flexbox 定义了伸缩容器内伸缩项目该如何布局。
+
 
 ### 4.2 FFC的基本概念
 
@@ -424,7 +538,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
 
 ### 4.4 常见属性
 
-容器属性
+#### 4.4.1 容器属性
 
 * flex-direction
   * flex-direction属性决定主轴的方向（即项目的排列方向）。
@@ -511,7 +625,8 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
 }
 ~~~
 
-项目属性
+#### 4.4.2 项目属性
+
 * order
   * order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
   * 示例代码
