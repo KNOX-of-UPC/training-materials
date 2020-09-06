@@ -418,6 +418,8 @@ html
 
 经典效果展示
 
+![avatar](./images/class.png) 
+
 #### 3.3.2 GFC实现布局
 
 CSS
@@ -447,6 +449,10 @@ html
 </div>
 
 ~~~
+
+GFC 效果示意
+
+![avatar](./images/six.png) 
 
 显然通过GFC控制排列，代码量也非常的少，也很容易理解。
 
@@ -487,6 +493,8 @@ html
 ~~~
 
 效果展示
+
+![avatar](./images/nine-grid.png) 
 
 ### 3.4 总结
 
