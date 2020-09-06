@@ -1,4 +1,4 @@
- # 排版上下文(FC)
+# 排版上下文(FC)
 
 ## 1. 块级排版上下文(BFC)
 
@@ -263,7 +263,11 @@ bfc的规则：计算BFC的高度时，浮动元素也参与计算所以只要�
         <p style="background-color: #eea">sdfadsfdff fffffffds fsfffff sfd  fsdsdfsdf fffffff</p>
 </div>
 
-## 2. 内联排版上下文(IFC)
+## 2. 内联排版上下文([IFC])
+
+### 2.1 IFC定义
+
+IFC(Inline Formatting Contexts)即内联排版上下文，也可称为内联格式化上下文。用来规定内联级盒子的格式化规则。
 
 * 符合以下条件即会生成一个IFC
 
@@ -271,16 +275,108 @@ bfc的规则：计算BFC的高度时，浮动元素也参与计算所以只要�
 
 形成条件非常简单，需要注意的是当IFC中有块级元素插入时，会产生两个匿名块将父元素分割开来，产生两个IFC，这里不做过多介绍。
 
-* IFC布局规则
+### 2.2 IFC布局规则
 
-1. 子元素水平方向横向排列，并且垂直方向起点为元素顶部。
-2. 子元素只会计算横向样式空间，【padding、border、margin】，垂直方向样式空间不会被计算，【padding、border、margin】。
-3. 在垂直方向上，子元素会以不同形式来对齐（vertical-align）
-4. 能把在一行上的框都完全包含进去的一个矩形区域，被称为该行的行框（line box）。行框的宽度是由包含块（containing box）和与其中的浮动来决定。
-5. IFC中的“line box”一般左右边贴紧其包含块，但float元素会优先排列。
-6. IFC中的“line box”高度由 CSS 行高计算规则来确定，同个IFC下的多个line box高度可能会不同。
-7. 当 inline-level boxes的总宽度少于包含它们的line box时，其水平渲染规则由 text-align 属性值来决定。
-8. 当一个“inline box”超过父元素的宽度时，它会被分割成多个boxes，这些 oxes 分布在多个“line box”中。如果子元素未设置强制换行的情况下，“inline box”将不可被分割，将会溢出父元素。
+1. 内部的Boxes会在水平方向，一个接一个地放置。
+2. 这些Boxes垂直方向的起点从包含块盒子的顶部开始。
+3. 摆放这些Boxes的时候，它们在水平方向上的外边距、边框、内边距所占用的空间都会被考虑在内。
+4. 在垂直方向上，这些框可能会以不同形式来对齐（vertical-align）：它们可能会使用底部或顶部对齐，也可能通过其内部的文本基线（baseline）对齐。
+5. 能把在一行上的框都完全包含进去的一个矩形区域，被称为该行的行框（line box）。行框的宽度是由包含块（containing box）和存在的浮动来决定。
+6. IFC中的line box一般左右边都贴紧其包含块，但是会因为float元素的存在发生变化。float元素会位于IFC与与line box之间，使得line box宽度缩短。
+7. IFC中的line box高度由CSS行高计算规则来确定，同个IFC下的多个line box高度可能会不同（比如一行包含了较高的图片，而另一行只有文本）。
+8. 当inline-level boxes的总宽度少于包含它们的line box时，其水平渲染规则由‘text-align’属性来确定，如果取值为‘justify’，那么浏览器会对inline-boxes（注意不是inline-table 和 inline-block boxes）中的文字和空格做出拉伸。
+9. 当一个inline box超过line box的宽度时，它会被分割成多个boxes，这些boxes被分布在多个line box里。如果一个inline box不能被分割（比如只包含单个字符，或word-breaking机制被禁用，或该行内框受white-space属性值为nowrap或pre的影响），那么这个inline box将溢出这个line box。
+
+> 上面的术语可能会看得有点迷糊，一会儿inline box，一会儿line box。line box是**行框**，inline box是**行内框**（或称为**内联框**），我们可简单按字面意思来理解：行内框是包含在行框内（或多个行框内，当出现换行时）的。
+
+### 2.3 何时会生成IFC
+
+和BFC可以被元素属性触发而被创建（triggered）不同，IFC只有在一个块元素中仅包含内联级别元素时才会生成。  
+下面我们通过一个实例来看看行内框的构造：
+<img src="./images/ex_IFC.png">
+
+~~~html
+<style>p {
+    color: whitesmoke;
+    background: orange;
+    width: 200px;
+    line-height: 40px;
+    text-align: center;
+    margin: 30px;
+    font-size: 18px;
+}
+em {
+    padding: 2px;
+    margin: 12px;
+    border-width: medium;
+    border-style: dashed;
+    line-height: 24px;
+}</style>
+<body>
+<p>Several <em>emphasized words</em> appear
+    <strong>in this</strong> sentence, dear.</p>
+</body>
+~~~
+
+p 元素产生一个块框，它包含了五个行内框，其中的三个是匿名的：
+
+1. 匿名：”Several”
+2. EM: “emphasized words”
+3. 匿名：”appear”
+4. STRONG: “in this”
+5. 匿名：”sentence, dear.”
+
+为了格式化这个段落，用户代理将这五个框排入行框内。本例中，为 p 元素生成的框生成了行内框的包含块。如果该包含块足够宽，则所有的行内框将放在一个行框内：
+<img src="./images/ex_IFC_2.png">
+否则inline box将产生分割，来放置在多个行框内。如上例中Result面板中所示，这个段落被分布在3个行框中。您可以在上例中修改p元素的width来查看不同的格式化效果。
+
+上例中，em元素被分割成2块（我们把它们称为“split1”和“split2”），margin、padding、border和text-decoration属性将不在分割处产生视觉效果，也就是在split1之后和split2之前无效。
+回过来看上面的例子中这些属性的影响：
+
+* margin 会被插入到 "emphasized" 之前和 "words" 之后。
+* padding 会被插入到 "emphasized" 的前面和上下，以及 "words" 的后面和上下。
+* border 将绘制在 "emphasized" 的前面和上下，以及 "words" 的后面和上下。
+
+### 2.4 IFC有什么用途
+
+使用IFC布局规则4和8可以实现文本垂直和水平居中：
+<img src="./images/ex_IFC_3.png">
+
+~~~html
+<style>
+body {
+    margin: 0;
+}
+.wrap {
+    text-align: center;
+    line-height: 300px;
+    width: 100%;
+    height: 300px;
+    background-color: #ccc;
+    font-size: 0;
+}
+p {
+    line-height: normal;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #333;
+    font-size: 18px;
+    padding: 10px;
+    width: 360px;
+    color: #fff;
+}
+</style>
+<body>
+<div class="wrap">
+    <p>使用IFC布局，display:inline-block、text-align:center和vertical-align:middle方法来实现文本垂直居中 inline-block元素以单个封闭块来参与外部的IFC，其内部会生成一个BFC，不在本例讨论范围之内。
+    </p>
+</div>
+</body>
+~~~
+
+* 我们使用一个块元素来包含一个内联元素，这样会生成一个IFC来规定如何渲染行内元素。按照IFC行内框的布局规则，其水平位置将由text-align属性来确定，所以设置text-align:center将把行内框居中。
+* 外部块元素的行高为内部行框设定了最小高度，好比在渲染时以一个隐藏的0宽度字符开始，具备该块元素所设置的行高（本例中为300px）和字体属性，我们称之为是一个支架（strut），作用是把外部块元素撑起来。参考阅读W3规范：[Strut]。
+* 然后我们设置内联（或内联块）元素的垂直对齐属性为中间，它将参照前述的隐藏支架的baseline来对齐。如果我们把块元素的字体设置为0，实际效果就是内联元素被垂直居中放置在块元素中。
 
 来几个例子？
 
@@ -369,6 +465,23 @@ bfc的规则：计算BFC的高度时，浮动元素也参与计算所以只要�
 </div>
 ~~~
 
+### 2.5 行高计算
+
+用户代理（user agent）将行内级框排入垂直堆叠的行框内。行框的高度由下面步骤决定：
+
+1. 计算行框里的各行内级框的高度。对于置换元素、行内块元素、行内表格元素来说，这是边界框的高度，对于行内框来说，这是其‘line-height’。
+2. 行内级元素根据其‘vertical-align’属性垂直对齐。如果这些框使用‘top’或‘bottom’对齐，用户代理必须以最小化行框的高为目标对齐这些框。这可能存在多种对齐方案，CSS 2.1并不定义行框基线的位置（也就是前述strut的位置）。
+3. 行框的高是最顶端框的顶边到最底端框的底边的距离。
+
+>空的行内元素产生空的行内框，但是这些框仍然拥有margins, padding, borders 和一个line height, 所以在上述行高计算中和有内容的行内元素一样。
+
+*行距（Leading）和半行距（half-leading）*
+CSS 假设所有字体的度量都有基线以上的height和基线以下的depth，我们使用 **A（ascender）** 来表示这个height（字母高出基线部分），而用 **D（descender）** 来表示depth（字母低出基线部分）。
+
+同时我们定义 **AD** = **A** + **D**，也就是整个字母的高度。
+
+User agent 必须在一个非替换行内框中按照字符（glyphs）的基线对它们进行对齐。也就是确定 **A** 和 **D**。 某元素中的字符可能存在多个字体，**A** 和 **D**则不尽相同。如果这个行内框不包含任何字符，它被认为包含一个strut（一个0宽度的隐藏字符），这个隐藏字符的 **A** 和 **D**遵循该元素的第一个有效字体。
+
 ## 3. 网格排版上下文(GFC)
 
 >由于布局规则及内容过于繁琐，所以在此仅将其与其他对比进行讲解
@@ -376,7 +489,6 @@ bfc的规则：计算BFC的高度时，浮动元素也参与计算所以只要�
 指路知乎[GFC] 可查看详细参数及技术内容
 
 ### 3.1 GFC（GrideLayout formatting contexts）
-
 
 直译为"网格布局格式化上下文"（也即是新的布局：display:grid;兼容性问题比较大），当为一个元素设置display值为grid的时候，此元素将会获得一个独立的渲染区域，我们可以通过在网格容器（grid container）上定义网格定义行（grid definition rows）和网格定义列（grid definition columns）属性各在网格项目（grid item）上定义网格行（grid row）和网格列（grid columns）为每一个网格项目（grid item）定义位置和空间。
 
@@ -418,7 +530,7 @@ html
 
 经典效果展示
 
-![avatar](./images/class.png) 
+![avatar](./images/class.png)  
 
 #### 3.3.2 GFC实现布局
 
@@ -452,7 +564,7 @@ html
 
 GFC 效果示意
 
-![avatar](./images/six.png) 
+![avatar](./images/six.png)
 
 显然通过GFC控制排列，代码量也非常的少，也很容易理解。
 
@@ -463,9 +575,9 @@ GFC 效果示意
 CSS
 
 ~~~html
-.cube { 
-    display: grid; 
-    grid-gap: 2px; 
+.cube {
+    display: grid;
+    grid-gap: 2px;
     width: 300px; height: 300px;
 }
 .cube div { border: 1px solid grey; }
@@ -494,7 +606,7 @@ html
 
 效果展示
 
-![avatar](./images/nine-grid.png) 
+![avatar](./images/nine-grid.png)
 
 ### 3.4 总结
 
@@ -513,12 +625,11 @@ Flex Box 由伸缩容器和伸缩项目组成。通过设置元素的 display �
 
 伸缩容器中的每一个子元素都是一个伸缩项目。伸缩项目可以是任意数量的。伸缩容器外和伸缩项目内的一切元素都不受影响。简单地说，Flexbox 定义了伸缩容器内伸缩项目该如何布局。
 
-
 ### 4.2 FFC的基本概念
 
 采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。
 
-![avatar](https://www.runoob.com/wp-content/uploads/2015/07/3791e575c48b3698be6a94ae1dbff79d.png) 
+![avatar](https://www.runoob.com/wp-content/uploads/2015/07/3791e575c48b3698be6a94ae1dbff79d.png)
 
 容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。
 
@@ -561,7 +672,6 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
     flex-direction: row | row-reverse | column | column-reverse;
 }
 ~~~
-
 
 * flex-wrap
   * 默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。
@@ -705,4 +815,6 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
 2020 年 08月 25日
 
 [GFC]:https://zhuanlan.zhihu.com/p/33030746
+[IFC]:https://techbrood.com/h5b2a?p=css-ifc#ifc-usage
+[Strut]:https://www.w3.org/TR/CSS2/visudet.html#strut
 [home]:https://github.com/Harrison-LUO
