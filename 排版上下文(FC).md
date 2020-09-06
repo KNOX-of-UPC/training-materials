@@ -1,4 +1,4 @@
-# 排版上下文(FC)
+ # 排版上下文(FC)
 
 ## 1. 块级排版上下文(BFC)
 
@@ -402,6 +402,73 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
 * 在CSS3多栏布局（column-*） 并不适用于弹性容器，其在 Flexbox 中也是失效的，就是说我们不能使用多栏布局在 Flexbox 排列其下的子元素
 * Flexbox 下的子元素不会继承父级容器的宽
 
+除此之外其自身的一些特性使得其在某些领域具有独特的优势：
+
+* 弹性容器的内容可以在任何方向以任何顺序放置。
+  * 可以被摆放在上下左右任何流方向（flow direction）
+  * 可以拥有显示序（display order），这样可以在样式层颠倒或重新安排位置。（也就是视觉顺序可以和文档顺序无关）
+  * 可以沿着一个单一的（主要的）轴摆放，或沿第2条正交轴线包装成多行。
+* 可以弹性调整大小来适配可用空间。
+* 可以与它们的容器或彼此对齐。
+* 可以沿主轴线动态压缩或扩展，同时保持容器的截面尺寸（cross size）
+
+### 4.3 常见属性
+
+容器属性
+
+* flex-direction
+  * flex-direction属性决定主轴的方向（即项目的排列方向）
+
+    ~~~html
+    .box {
+        flex-direction: row | row-reverse | column | column-reverse;
+    }
+    ~~~
+
+* flex-wrap
+  * 默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行
+
+    ~~~html
+    .box{
+        flex-wrap: nowrap | wrap | wrap-reverse;
+    }
+    ~~~
+
+* flex-flow
+  * flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap
+
+    ~~~html
+    .box {
+        flex-flow: <flex-direction> <flex-wrap>;
+    }
+    ~~~
+
+* justify-content
+  * ustify-content属性定义了项目在主轴上的对齐方式
+
+    ~~~html
+    .box {
+        justify-content: flex-start | flex-end | center | space-between | space-around;
+    }
+    ~~~
+
+* align-items
+  * align-items属性定义项目在交叉轴上如何对齐
+
+    ~~~html
+    .box {
+        align-items: flex-start | flex-end | center | baseline | stretch;
+    }
+    ~~~
+
+* align-content
+  * align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用
+
+    ~~~html
+    .box {
+        align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+    }
+    ~~~
 
 作者[@Harrison-LUO][home]
 2020 年 08月 25日
