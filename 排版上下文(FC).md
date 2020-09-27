@@ -1305,14 +1305,14 @@ other styles just for format
 }
 </style>
 
-
+<body>
 <div class="flex1">
     <div class="item1">1</div>
     <div class="item1">2</div>
     <div class="item1">3</div>
     <div class="item1">4</div>
 </div>
-
+</body>
 
 ~~~css
 .flex1 {
