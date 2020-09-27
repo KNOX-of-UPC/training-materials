@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>test</title>
+<style type="text/css">
+img { width:300px; margin:6px;}
+.r1 {
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+    -moz-box-shadow:-10px 0 12px red, 
+      10px 0 12px blue,
+      0 -10px 12px yellow,
+      0 10px 12px green;
+    -webkit-box-shadow:-10px 0 12px red, 
+      10px 0 12px blue,
+      0 -10px 12px yellow,
+      0 10px 12px green;
+    box-shadow:-10px 0 12px red, 
+      10px 0 12px blue,
+      0 -10px 12px yellow,
+      0 10px 12px green; 
+}
+</style>
+</head>
+<body>
+<img src="images/2.jpg" title="无阴影图像" /> 
+<img class="r1" src="images/2.jpg" title="阴影图像" />
+</body>
+</html>

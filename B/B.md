@@ -184,6 +184,37 @@ css必须放在特定类型的文件、标签或属性中，负责无效。css�
 1、以上所有复合属性里面，如果存在不需要设置的属性值，最好不要加none，否则会导致属性值失效。  
 2、浏览器引擎是按照从上到下的顺序来解析网页源代码的，所以在写css时，要注意样式的顺序，比如如果用em为单位设置行高时，要先设置字体的大小，才能接着设置文本行高。
 
+**随堂作业：**
+
+```English
+CSS ZEN GARDEN（一级标题）
+THE BEAUTY OF CSS DESIGN（二级标题）
+A demonstration of what can be accomplished visually through CSS-based design. Select any style sheet from the list to load it into this page.
+
+Download the sample html file and css file
+
+THE ROAD TO ENLIGHTENMENT（三级标题）
+Littering a dark and dreary road lay the past relics of browser-specific tags, incompatible DOMs, and broken CSS support.
+
+Today, we must clear the mind of past practices. Web enlightenment has been achieved thanks to the tireless efforts of folk like the W3C, WaSP and the major browser creators.
+
+The css Zen Garden invites you to relax and meditate on the important lessons of the masters. Begin to see with clarity. Learn to use the (yet to be) time-honored techniques in new and invigorating fashion. Become one with the web.
+```
+
+```Chinese
+1.为上述文本设计格式，具体要求如下：
+(1).深蓝色为底色#35393D，浅灰色为前景色（字体颜色）#787878，字体13px，行间距2em；
+(2).一级标题：字体大小为1.8倍默认大小，加亮字体色#ddd，右对齐；
+(3).二级标题：字体大小为1.2倍默认大小；
+```
+
+```Chinese
+2.自己找一张照片进行制作，要求如下：
+(1).设置合适的大小；
+(2).设置白色1px的边框，12px的圆角边框
+(3).设置上下左右的阴影颜色分别为黄绿红蓝，阴影大小为12px，水平、垂直平移为10px。
+```
+
 ---
 
 作者：[@Shirley-zzb][address]
