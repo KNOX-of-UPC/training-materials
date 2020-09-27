@@ -815,6 +815,113 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
 
 ~~~
 
+## 5. 小测试
+
+考虑到排版上下文内容较多且比较杂，所以针对常用的两种排版格式块级排版上下文(BFC)和弹性排版上下文(FFC)出几个小测试。
+
+### 5.1 块级排版上下文(BFC)
+
+#### 5.1.1 自适应两栏布局
+
+常规方法
+
+~~~css
+body {
+        width: 300px;
+        position: relative;
+    }
+.aside {
+    width: 100px;
+    height: 150px;
+    float: left;
+    background: #f66;
+}
+.main {
+    height: 200px;
+    background: #fcc;
+}
+~~~
+
+~~~html
+ <body>
+        <div class="aside"></div>
+        <div class="main"></div>
+</body>
+~~~
+
+![ERROR](./images/test1.png)
+
+利用BFC改写生成自适应两栏布局
+
+<details>
+<summary>点击查看答案</summary>
+
+每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+
+因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。
+
+根据BFC布局规则BFC的区域不会与float box重叠。
+
+我们可以通过通过触发main生成BFC， 来实现自适应两栏布局。
+
+~~~css
+.main {
+    overflow: hidden;
+}
+~~~
+
+当触发main生成BFC后，这个新的BFC不会与浮动的aside重叠。因此会根据包含块的宽度，和aside的宽度，自动变窄。效果如下：
+
+![ERROR](./images/test1.2.png)
+
+</details>
+
+#### 5.1.2 清除内部浮动
+
+~~~css
+.par {
+    border: 5px solid #fcc;
+    width: 300px;
+ }
+ 
+.child {
+    border: 5px solid #f66;
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+~~~
+
+~~~html
+<body>
+    <div class="par">
+        <div class="child"></div>
+        <div class="child"></div>
+    </div>
+</body>
+~~~ 
+
+![ERROR](./images/test1.21.png)
+
+<details>
+<summary>点击查看答案</summary>
+根据BFC布局规则计算BFC的高度时，浮动元素也参与计算
+
+为达到清除内部浮动，我们可以触发par生成BFC，那么par在计算高度时，par内部的浮动元素child也会参与计算。
+
+~~~css
+.par {
+    overflow: hidden;
+}
+~~~
+效果如下：
+
+![ERROR](./images/test1.22.png)
+
+</details>
+
+
+
 作者[@Harrison-LUO][luo] [@KVM-Explorer][yang]
 2020 年 08月 25日
 
