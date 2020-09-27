@@ -1289,14 +1289,14 @@ h1 {
     background: #333;
     border-radius: 7px;
 }
-.item {
+.item1 {
     width: 80px;
     box-sizing: border-box;  
 }
 /*
 other styles just for format
 */
-.item {
+.item1 {
     margin: 5px;
     padding: 5px;
     background: #999;
@@ -1307,10 +1307,10 @@ other styles just for format
 
 <body>
 <div class="flex1">
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
+    <div class="item1">1</div>
+    <div class="item1">2</div>
+    <div class="item1">3</div>
+    <div class="item1">4</div>
 </div>
 </body>
 
@@ -1322,19 +1322,30 @@ other styles just for format
     background: #333;
     border-radius: 7px;
 }
-.item {
+.item1 {
     width: 80px;
     box-sizing: border-box;  
+}
+.flex1 {
+    background: #333;
+    border-radius: 7px;
+}
+.item1 {
+    margin: 5px;
+    padding: 5px;
+    background: #999;
+    border-radius: 7px;
+    text-align: center;
 }
 ~~~
 
 ~~~html
 <body>
 <div class="flex1">
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
+    <div class="item1">1</div>
+    <div class="item1">2</div>
+    <div class="item1">3</div>
+    <div class="item1">4</div>
 </div>
 </body>
 ~~~
