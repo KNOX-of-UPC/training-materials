@@ -815,7 +815,7 @@ FFC与BFC有点儿类似，但它是弹性容器不是块容器，因此一些�
 
 ~~~
 
-## 5. 小测试
+## 5. 课后作业
 
 考虑到排版上下文内容较多且比较杂，所以针对常用的两种排版格式块级排版上下文(BFC)和弹性排版上下文(FFC)出几个小测试。
 
@@ -883,7 +883,6 @@ body {
     border: 5px solid #fcc;
     width: 300px;
  }
- 
 .child {
     border: 5px solid #f66;
     width: 100px;
@@ -899,7 +898,7 @@ body {
         <div class="child"></div>
     </div>
 </body>
-~~~ 
+~~~
 
 ![ERROR](./images/test1.21.png)
 
@@ -914,13 +913,683 @@ body {
     overflow: hidden;
 }
 ~~~
+
 效果如下：
 
 ![ERROR](./images/test1.22.png)
 
 </details>
 
+### 5.2弹性排版上下文(FFC)
 
+#### 5.2.1 商品类目实例
+
+<style>
+.deals1 {
+    display: flex;
+    /*
+     弹性布局，这样所有弹性项目为同一高度  
+     */
+    flex-flow: row wrap;
+    /*
+    允许项目被包装到多行中
+    */
+}
+.sale-item {
+    display: flex;
+    /*
+    每个项目都以弹性布局来摆放
+    */
+    flex-flow: column;
+    /*
+     项目的内容垂直摆放  
+     */
+}
+.sale-item > img {
+    order: -1;
+    /*
+    把图片放在所有内容之前（在视觉顺序上）
+    */
+    align-self: center;
+    /*
+    设置图片水平居中对齐
+    */
+}
+.sale-item > button {
+    margin-top: auto;
+    /*
+    自动顶部边距将把按钮推到底部
+    */
+}
+/*
+
+-------------------------------------------------------------------------  
+*/
+/* other styles not related to flex layout, but to beautify this sample :) */
+
+body {
+    background: white;
+}
+.sale-item {
+    box-sizing: border-box;
+    /*
+    把边线和内边距放进元素宽度内
+    */
+    width: 50%;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0px;
+}
+button {
+    border: 3px solid #999;
+    padding: 10px 0;
+    background: transparent;
+}
+</style>
+
+<body>
+<section class="deals1">
+    <section class="sale-item">
+        <h1>Computer Starter Kit</h1>
+        <p>This is the best computer money can buy, if you don’t have much money.
+            <ul>
+                <li>Computer
+                    <li>Monitor
+                        <li>Keyboard
+                            <li>Mouse
+            </ul>
+            <img src="https://www.w3.org/TR/css3-flexbox/images/computer.jpg" alt="You get: a white computer with matching peripherals.">
+            <button>BUY NOW</button>
+    </section>
+    <section class="sale-item">
+        <h1>Printer Kit</h1>
+        <p>Only capable of printing ASCII art.
+            <ul>
+                <li>Paper and ink not included.
+            </ul>
+            <img src="https://www.w3.org/TR/css3-flexbox/images/printer.png" alt="You get: a white computer with matching peripherals.">
+            <button>BUY NOW</button>
+    </section>
+</section>
+</body>
+
+~~~css
+.deals1 {
+    display: flex;
+    /*
+     弹性布局，这样所有弹性项目为同一高度  
+     */
+    flex-flow: row wrap;
+    /*
+    允许项目被包装到多行中
+    */
+}
+.sale-item {
+    display: flex;
+    /*
+    每个项目都以弹性布局来摆放
+    */
+    flex-flow: column;
+    /*
+     项目的内容垂直摆放  
+     */
+}
+.sale-item > img {
+    order: -1;
+    /*
+    把图片放在所有内容之前（在视觉顺序上）
+    */
+    align-self: center;
+    /*
+    设置图片水平居中对齐
+    */
+}
+.sale-item > button {
+    margin-top: auto;
+    /*
+    自动顶部边距将把按钮推到底部
+    */
+}
+/*
+
+-------------------------------------------------------------------------  
+*/
+/* other styles not related to flex layout, but to beautify this sample :) */
+~~~
+
+~~~html
+<body>
+<section class="deals1">
+    <section class="sale-item">
+        <h1>Computer Starter Kit</h1>
+        <p>This is the best computer money can buy, if you don’t have much money.
+            <ul>
+                <li>Computer
+                    <li>Monitor
+                        <li>Keyboard
+                            <li>Mouse
+            </ul>
+            <img src="https://www.w3.org/TR/css3-flexbox/images/computer.jpg" alt="You get: a white computer with matching peripherals.">
+            <button>BUY NOW</button>
+    </section>
+    <section class="sale-item">
+        <h1>Printer Kit</h1>
+        <p>Only capable of printing ASCII art.
+            <ul>
+                <li>Paper and ink not included.
+            </ul>
+            <img src="https://www.w3.org/TR/css3-flexbox/images/printer.png" alt="You get: a white computer with matching peripherals.">
+            <button>BUY NOW</button>
+    </section>
+</section>
+</body>
+~~~
+
+#### 5.2.2 弹性容器
+
+我们可以使用flex-flow属性来一次性定义弹性方向（flex-direction）和包装（flex-wrap）两个属性，即该属性是前两者的速写方式，这两个属性合起来定义了弹性容器的主轴和垂直轴。
+
+<style>
+.flex-container {
+    display: flex;
+}
+.flex-container.first {
+    flex-flow: row;
+}
+/*
+Initial value. Main-axis is
+   inline, no wrap.
+*/
+
+.flex-container.second {
+    flex-flow: column wrap;
+    -webkit-flex-flow: column wrap;
+}
+/*
+    ain-axis is block-direction (top to bottom)
+    and lines wrap in the inline direction (rightwards).
+*/
+
+.flex-container.third {
+    flex-flow: row-reverse wrap-reverse;
+}
+/*
+Main-axis is the opposite of inline direction
+(right to left). New lines wrap upwards.
+*/
+/*
+other styles just for format
+*/
+
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+.flex-container {
+    background: deepskyblue;
+    width: 200px;
+    height: 200px;
+    margin: 5px auto;
+}
+.flex-container.first {
+    height: 100px;
+}
+.flex-item {
+    background: tomato;
+    padding: 5px;
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    line-height: 80px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+}
+h1 {
+    font-size: 22px;
+    text-align: center;
+}
+.flex-demo{display:flex;}
+</style>
+
+<body>
+<h1>CSS3 弹性布局弹性流（flex-flow）属性示例</h1>
+<div class="flex-demo">
+<ul class="flex-container first">
+    <li class="flex-item">1</li>
+    <li class="flex-item">2</li>
+    <li class="flex-item">3</li>
+    <li class="flex-item">4</li>
+</ul>
+
+<ul class="flex-container second">
+    <li class="flex-item">1</li>
+    <li class="flex-item">2</li>
+    <li class="flex-item">3</li>
+    <li class="flex-item">4</li>
+</ul>
+
+<ul class="flex-container third">
+    <li class="flex-item">1</li>
+    <li class="flex-item">2</li>
+    <li class="flex-item">3</li>
+    <li class="flex-item">4</li>
+</ul>
+</div>
+</body>
+
+~~~css
+.flex-container {
+    display: flex;
+}
+.flex-container.first {
+    flex-flow: row;
+}
+/*
+Initial value. Main-axis is
+   inline, no wrap.
+*/
+
+.flex-container.second {
+    flex-flow: column wrap;
+    -webkit-flex-flow: column wrap;
+}
+/*
+    ain-axis is block-direction (top to bottom)
+    and lines wrap in the inline direction (rightwards).
+*/
+
+.flex-container.third {
+    flex-flow: row-reverse wrap-reverse;
+}
+/*
+Main-axis is the opposite of inline direction
+(right to left). New lines wrap upwards.
+*/
+/*
+other styles just for format
+*/
+
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+.flex-container {
+    background: deepskyblue;
+    width: 200px;
+    height: 200px;
+    margin: 5px auto;
+}
+.flex-container.first {
+    height: 100px;
+}
+.flex-item {
+    background: tomato;
+    padding: 5px;
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    line-height: 80px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+}
+h1 {
+    font-size: 22px;
+    text-align: center;
+}
+.flex-demo{display:flex;}
+~~~
+
+~~~html
+<body>
+<h1>CSS3 弹性布局弹性流（flex-flow）属性示例</h1>
+<div class="flex-demo">
+<ul class="flex-container first">
+    <li class="flex-item">1</li>
+    <li class="flex-item">2</li>
+    <li class="flex-item">3</li>
+    <li class="flex-item">4</li>
+</ul>
+
+<ul class="flex-container second">
+    <li class="flex-item">1</li>
+    <li class="flex-item">2</li>
+    <li class="flex-item">3</li>
+    <li class="flex-item">4</li>
+</ul>
+
+<ul class="flex-container third">
+    <li class="flex-item">1</li>
+    <li class="flex-item">2</li>
+    <li class="flex-item">3</li>
+    <li class="flex-item">4</li>
+</ul>
+</div>
+</body>
+~~~
+
+#### 5.2.3 弹性项目的伸缩性
+
+弹性布局赋予弹性项目可伸缩性，可以改变其宽度/高度，以填充可用空间。这通过设置flex属性来实现。
+下面第二个例子演示flex: auto属性值的效果。除了给每个弹性项目添加了flex: auto外，其余和第一个例子一样。 第一行有60px的剩余空间，而所有项目具有相同的伸缩性（Flexibility），所以第一行的3个项目将平均分配剩余的空间，也就是获得20px的额外宽度， 这样最终是占据100px的宽度（含内外边距）。而第二行的单独项目将自我延展到占据整个行宽（300px）。
+
+<style>
+
+.flex1 {
+    display: flex;
+    flex-flow: row wrap;
+    width: 300px;
+    background: #333;
+    border-radius: 7px;
+}
+.item {
+    width: 80px;
+    box-sizing: border-box;  
+}
+/*
+other styles just for format
+*/
+.item {
+    margin: 5px;
+    padding: 5px;
+    background: #999;
+    border-radius: 7px;
+    text-align: center;
+}
+</style>
+
+<body>
+<div class="flex1">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+</div>
+</body>
+
+~~~css
+.flex1 {
+    display: flex;
+    flex-flow: row wrap;
+    width: 300px;
+    background: #333;
+    border-radius: 7px;
+}
+.item {
+    width: 80px;
+    box-sizing: border-box;  
+}
+~~~
+
+~~~html
+<body>
+<div class="flex1">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+</div>
+</body>
+~~~
+
+<style>
+.flex2 {
+    display: flex;
+    flex-flow: row wrap;
+    width: 300px;
+}
+.item {
+    width: 80px;
+    box-sizing: border-box;
+    flex: auto;
+}
+/*
+other styles just for format
+*/
+
+.flex2 {
+    background: #333;
+    border-radius: 7px;
+}
+.item {
+    margin: 5px;
+    padding: 5px;
+    background: #999;
+    border-radius: 7px;
+    text-align: center;
+}
+</style>
+
+<body>
+<div class="flex2">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+</div>
+</body>
+
+~~~css
+.flex2 {
+    display: flex;
+    flex-flow: row wrap;
+    width: 300px;
+}
+.item {
+    width: 80px;
+    box-sizing: border-box;
+    flex: auto;
+}
+/*
+other styles just for format
+*/
+
+.flex2 {
+    background: #333;
+    border-radius: 7px;
+}
+.item {
+    margin: 5px;
+    padding: 5px;
+    background: #999;
+    border-radius: 7px;
+    text-align: center;
+}
+~~~
+
+~~~html
+<body>
+<div class="flex2">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+</div>
+</body>
+~~~
+
+#### 5.2.4 快速实现圣杯布局
+
+许多网页有类似的HTML代码，一个header和footer分别在文档顶部和底部，页面中间是内容区域和一个或两个附加列作为边栏。 一般情况下，页面源代码中的主体内容放在附加列前面比较理想。然而，这使得一些设计模式较难实现，比如圣杯布局（Holy Grail Layout，也就是经典三列布局）。 在过去这么多年里，该问题已经被使用多种方式所解决，但是弹性布局的order属性使得这个问题的解决变得极其自然和简单。
+
+<style>
+#main {
+    display: flex;
+    height: 300px;
+}
+#main > article {
+    order: 2;
+    min-width: 12em;
+    flex: 1;
+}
+#main > nav {
+    order: 1;
+    width: 150px;
+}
+#main > aside {
+    order: 3;
+    width: 150px;
+}
+@media all and (max-width: 600px) {
+    /*
+    Too narrow to support three columns
+    */
+    #main {
+        flex-flow: column;
+    }
+    #main > article,
+    #main > nav,
+    #main > aside {
+        /*
+        Return them to document order
+        */
+        order: 0;
+        width: auto;
+    }
+}
+/*
+other styles just for format
+*/
+
+html {
+    background: #ccc;
+    font-family: microsoft yahei;
+}
+body {
+    background: #222;
+    border-style: content-box;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+}
+.T{
+    text-align:center;
+}
+header,
+footer {
+    height: 40px;
+    line-height: 40px;
+}
+#main * {
+    padding: 20px 0;
+    margin: 10px 0;
+}
+article,nav,aside {
+    border-radius: 13px;
+    background: #aaa;
+}
+header,
+footer {
+    border-radius: 10px;
+    background: #555;
+}
+#main article {
+    margin: 10px;
+}
+</style>
+
+<body>
+<div class="T">
+<header>页头</header>
+<div id="main">
+    <article>文章内容</article>
+    <nav>菜单栏</nav>
+    <aside>推荐栏</aside>
+</div>
+<footer>页脚</footer>
+</div>
+</body>
+
+~~~css
+#main {
+    display: flex;
+    height: 300px;
+}
+#main > article {
+    order: 2;
+    min-width: 12em;
+    flex: 1;
+}
+#main > nav {
+    order: 1;
+    width: 150px;
+}
+#main > aside {
+    order: 3;
+    width: 150px;
+}
+@media all and (max-width: 600px) {
+    /*
+    Too narrow to support three columns
+    */
+    #main {
+        flex-flow: column;
+    }
+    #main > article,
+    #main > nav,
+    #main > aside {
+        /*
+        Return them to document order
+        */
+        order: 0;
+        width: auto;
+    }
+}
+/* other styles just for format */
+
+html {
+    background: #ccc;
+    font-family: microsoft yahei;
+}
+body {
+    background: #222;
+    border-style: content-box;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+}
+header,
+footer {
+    height: 40px;
+    line-height: 40px;
+}
+#main * {
+    padding: 20px 0;
+    margin: 10px 0;
+}
+article,nav,aside {
+    border-radius: 13px;
+    background: #aaa;
+}
+header,
+footer {
+    border-radius: 10px;
+    background: #555;
+}
+#main article {
+    margin: 10px;
+}
+~~~
+
+~~~html
+<body>
+<header>页头</header>
+<div id="main">
+    <article>文章内容</article>
+    <nav>菜单栏</nav>
+    <aside>推荐栏</aside>
+</div>
+<footer>页脚</footer>
+</body>
+~~~
 
 作者[@Harrison-LUO][luo] [@KVM-Explorer][yang]
 2020 年 08月 25日
