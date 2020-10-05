@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 正则表达式（RE）
 
 ## 概念
@@ -184,3 +185,154 @@ document.write(patt2.exec("The best things in life are free")); //返回null
 
 作者：[@ccwwaa](https://github.com/ccwwaa)  
 2020年08月17日
+=======
+# 正则表达式（RE）
+## 概念
+
+正则表达式是由一个字符序列形成的搜索模式，它可以是一个简单的字符，也可以是一个更复杂的模式。在搜索数据时，正则表达式能够用来描述你要查询的内容，可用于所有的文本搜索和文本替换的操作。
+
+## 语法
+```javascript
+//正则表达式主体/修饰符（可选）
+var n=/ruoke/i; 
+```
+
+## 使用方法
+### 1. search()方法
+
+用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。
+```javascript
+var str="I like nuoke!";
+var n=str.search(/nuoke/i); //返回n的位置 
+//大小写不用区分
+```
+```javascript
+var str="I like nuoke!";
+var n=str.search(nuoke);//可以把字符串作为参数，字符串会转换成相应的正则表达式
+```
+
+### 2. replace()方法
+
+用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式相匹配的子串。
+```javascript
+var str="I like nuoke!";
+var n=str.replace(/nuoke/i,"apple"); //将str中的nuoke替换成apple
+```
+```javascript
+var str="I like nuoke!";
+var n=str.replace(nuoke,"apple"); //以字符串作为参数
+```
+
+
+## 修饰符
+
+全局搜索中不用区分大小写
+|修饰符|描述|
+|----|----|
+|i|执行对大小写不敏感的匹配。|
+|g|执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。|
+|m|执行多行匹配。|
+
+## 模式
+### 1. 方括号：用于查找某个范围内的字符。
+|表达式|描述|
+|----|----|
+|[abc]|	查找方括号之间的任何字符。|
+|[^abc]|查找任何不在方括号之间的字符。|
+|[0-9]|查找任何从 0 至 9 的数字。|
+|[a-z]|查找任何从小写 a 到小写 z 的字符。|
+|[A-Z]|查找任何从大写 A 到大写 Z 的字符。|
+|[adgk]|查找给定集合内的任何字符。|
+|[^adgk]|查找给定集合外的任何字符。|
+|(red|blue|green)|查找任何指定的选项。|
+|(x|y)|查找任何以 | 分隔的选项。|
+
+### 2. 元字符：拥有特殊含义的字符。
+|元字符|描述|
+|----|----|
+|.|查找单个字符，除了换行和行结束符。|
+|\w|查找单词字符。|
+|\W|查找非单词字符。|
+|\d|查找数字。|
+|\D|查找非数字字符。|
+|\s|查找空白字符。|
+|\S|查找非空白字符。|
+|\b|匹配单词边界。|
+|\B|匹配非单词边界。|
+|\0|查找 NULL 字符。|
+|\n|查找换行符。|
+|\f|查找换页符。|
+|\r|查找回车符。|
+|\t|查找制表符。|
+|\v|查找垂直制表符。|
+|\xxx|查找以八进制数 xxx 规定的字符。|
+|\xdd|查找以十六进制数 dd 规定的字符。|
+|\uxxxx|查找以十六进制数 xxxx 规定的 Unicode 字符。|
+
+### 3. 量词
+|量词|描述|
+|----|----|
+|n+|匹配任何包含至少一个 n 的字符串。|
+|n*|匹配任何包含零个或多个 n 的字符串。|
+|n?|匹配任何包含零个或一个 n 的字符串。|
+|n{X}|匹配包含 X 个 n 的序列的字符串。|
+|n{X,}|	X 是一个正整数。前面的模式 n 连续出现至少 X 次时匹配。|
+|n{X,Y}|X 和 Y 为正整数。前面的模式 n 连续出现至少 X 次，至多 Y 次时匹配。|
+|n$|匹配任何结尾为 n 的字符串。|
+|^n	|匹配任何开头为 n 的字符串。|
+|?=n|匹配任何其后紧接指定字符串 n 的字符串。|
+|?!n|匹配任何其后没有紧接指定字符串 n 的字符串。|
+
+## RegExp对象
+在JavaScript中，RegExp对象是一个预定义了属性和方法的正则表达式对象。
+
+### 1. RegExp对象方法
+|方法|描述|
+|----|----|
+|exec|检索字符串中指定的值。返回找到的值，并确定其位置。|
+|test|检索字符串中指定的值。返回 true 或 false。|
+|toString|返回正则表达式的字符串。|
+
+当使用构造函数创造正则对象时，需要常规的字符转义规则（在前面加反斜杠\）
+```javascript
+var re = new RegExp("\\w+");
+```
+
+* test()
+搜索字符串指定的值，根据结果并返回真或假。
+```javascript
+var patt1=new RegExp("e");
+document.write(patt1.test("The best things in life are free"));// 返回true
+```
+* exec()
+检索字符串中的指定值。返回值是被找到的值，如果没有发现匹配，则返回null。
+```javascript
+var patt1=new RegExp("e");
+var patt2=new RegExp("o");
+document.write(patt1.exec("The best things in life are free")); //返回e
+document.write(patt2.exec("The best things in life are free")); //返回null
+```
+
+### 2. 支持正则表达式的String对象的方法
+|方法|描述|
+|----|----|
+|search|检索与正则表达式相匹配的值。|
+|match|找到一个或多个正则表达式的匹配。|
+|replace|替换与正则表达式匹配的子串。|
+|split|	把字符串分割为字符串数组。|
+
+### 3. 属性
+|属性|描述|
+|----|----|
+|constructor|返回一个函数，该函数是一个创建 RegExp 对象的原型。|
+|global|判断是否设置了 "g" 修饰符。|
+|ignoreCase|判断是否设置了 "i" 修饰符。|
+|lastIndex|用于规定下次匹配的起始位置。|
+|multiline|判断是否设置了 "m" 修饰符。|
+|source|返回正则表达式的匹配模式。|
+
+作者：[@ccwwaa](https://github.com/ccwwaa)  
+2020年08月17日
+
+
+>>>>>>> 68364ed20e81365cdfd8391f64c2e0a6daecce97
