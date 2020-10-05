@@ -279,6 +279,8 @@ document.getElementById("demo").innerHTML = myJSON;
 
 ## 作业
 
+实现json页面分页
+
 ```javascript
 var a={"code":1,"list":[{"category1_id":"1",
 "category1_name":"\u9152\u6c34\u996e\u6599",
