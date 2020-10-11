@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+td {
+    height: 30px;
+    text-align: center
+}
+
+table {
+    margin: 0px auto;
+}
+
+table,
+td,
+th {
+    border: 1px #DCDCDC solid;
+    border-collapse: collapse;
+}
+
+.input1 {
+    width: 200px;
+    height: 15px;
+    font-size: 12px;
+}
+
+.input2 {
+    width: 80px;
+    height: 15px;
+    font-size: 12px;
+}
+
+#show-box th{
+    width: 100px;
+
+}
