@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取图片的base64编码</title>
+    <style>
+        p {
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" accept="image/*">
+    <p>该图片的 base64 编码为:</p>
+    <p id="res"></p>
+    <script>
+        document.getElementsByTagName("input")[0].addEventListener("change", (chgEvt) => {
+            if (chgEvt.target.files[0] != null) {
+                const reader = new FileReader();
+                reader.readAsDataURL(chgEvt.target.files[0]);
+                reader.onload = ldEvt => {
+                    document.getElementById("res").innerText = ldEvt.target.result;
+                };
+            }
+        });
+    </script>
+</body>
+</html>
