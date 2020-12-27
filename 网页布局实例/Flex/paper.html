@@ -1,0 +1,48 @@
+<html>
+<style>
+    .box{
+        display: flex;
+        background-color: sandybrown;
+        height: 500px;
+        width: 100%;
+    }
+    .inbox{
+        display: flex;
+        flex-direction: column;
+        background-color: grey;
+        width: 50%;
+    }
+    .box .inbox .mbox{
+        display: flex;
+        height: 50%;
+    }
+    .box .inbox .mbox:nth-child(1){background-color: lawngreen;}
+    .box .inbox .mbox:nth-child(2){background-color: lightcoral;}
+    .item{
+        background-color: grey;
+    }
+    .box .item{
+        width: 50%;
+        background-color: khaki;
+    }
+    .box .inbox .mbox:nth-child(1) .item:nth-child(1){background-color: lightcyan;}
+    .box .inbox .mbox:nth-child(1) .item:nth-child(2){background-color: lightslategrey;}
+
+</style>
+<body>
+    <div class="box">
+        <div class="inbox">
+            <div class="mbox">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="mbox">
+                sds
+            </div>
+        </div>
+        
+    <div class="item">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+<style>
+    .box{
+        display: flex;
+        flex-direction: row;
+        width: 300px;
+        height: 200px;
+        background-color: pink;
+        flex-wrap: wrap;
+    }
+    .item{
+        width: 100px;
+        
+    }
+</style>
+<body>
+    <div class="box">
+        <div class="item" style="background-color: orange;">2323</div>
+        <div class="item" style="background-color: royalblue;">444</div>
+        <div class="item" style="background-color: seagreen;">5555</div>
+        <div class="item" style="background-color: springgreen;">6666</div>
+    </div>
+    <div>__________________________________</div>
+    <div class="box">
+        <div class="item" style="background-color: seagreen;">5555</div>
+        <div class="item" style="background-color: springgreen;">6666</div>
+        <div class="item" style="background-color: orange;">2323</div>
+        <div class="item" style="background-color: royalblue;">444</div>
+  
+    </div>
+    <div>__________________________________</div>
+    <div class="box">
+        <div class="item" style="background-color: seagreen;order: 3;">5555</div>
+        <div class="item" style="background-color: springgreen;order: 4;">6666</div>
+        <div class="item" style="background-color: orange; order: 1;">2323</div>
+        <div class="item" style="background-color: royalblue;order: 23;">444</div>
+  
+    </div>
+</body>
+</html>

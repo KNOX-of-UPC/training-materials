@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*1 build*/
+        .box {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* 1 end */
+        /* 2 bfc 防止外边重叠*/
+        .container1 {
+            /* 通过overflow：hidden可以创建bfc */
+            overflow: hidden;
+            background-color: red;
+            width: 300px;
+        }
+
+        .sub1 {
+            margin: 20px 0px;
+            background-color: #dea;
+        }
+
+        .newbfc {
+            overflow: hidden;
+        }
+
+        /* 2 end */
+        /* 3 清除浮动问题 */
+
+        .pre2 {
+            width: 500px;
+            border: 5px solid red;
+        }
+
+        .pre3 {
+            /* 设置BFC清除浮动 */
+            width: 500px;
+            border: 5px solid red;
+            /* 设置overflow*/
+            overflow: hidden;
+        }
+
+        .float1,
+        .float2 {
+            width: 100px;
+            height: 100px;
+            float: right;
+        }
+
+        .float1 {
+            background-color: #dee;
+        }
+
+        .float2 {
+            background-color: #dcc;
+        }
+
+        /* 3 end */
+        /* 4 防止文字环绕 */
+        .container2 {
+            overflow: hidden;
+            width: 200px;
+        }
+        
+        .box2 {
+            float: left;
+            width: 100px;
+            height: 30px;
+            background-color: #daa;
+        }
+
+        .container3 {
+            overflow: hidden;
+            width: 200px;
+        }
+        
+        .container3  p{
+            overflow:hidden;
+        }
+        /* 4 end  */
+    </style>
+</head>
+
+<body>
+    <div>1.__________________________________________</div>
+    <div class="box" style="background-color: rgb(18, 132, 231);">1232</div>
+    <div class="box" style="background-color: orange;"></div>
+    <div>2.1__________________________________________</div>
+    <div class="container1">
+        <div class="sub1">String1</div>
+        <div class="sub1">String2</div>
+    </div>
+
+    <div>2.2________________________________________</div>
+    <div class="container1">
+        <div class="sub1">String1</div>
+        <div class="newbfc">
+            <div class="sub1">String2</div>
+        </div>
+    </div>
+    <div>3.1————————————————————————————————————————</div>
+    <div class="pre2">
+        <div class="float1">12</div>
+        <div class="float2">23</div>
+    </div>
+    <div>3.2——————————————————————————————————————————</div>
+    <div class="pre3">
+        <div class="float1">15</div>
+        <div class="float2">48</div>
+    </div>
+
+    <div>4.1——————————————————————————————————————————</div>
+    <div class="container2">
+        <div class="box2"></div>
+        <p style="background-color: #eea">sdfadsfdff fffffffds fsfffff sfd fsdsdfsdf fffffff</p>
+    </div>
+    <div>4.2————————————————————————————————————————————</div>
+    <div class="container3">
+        <div class="box2"></div>
+        <p style="background-color: #eea">sdfadsfdff fffffffds fsfffff sfd  fsdsdfsdf fffffff</p>
+    </div>
+
+    
+
+</body>
+
+</html>

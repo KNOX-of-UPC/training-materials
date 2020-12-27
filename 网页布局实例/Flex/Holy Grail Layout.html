@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .holy-layout {
+            display: flex;
+            flex-wrap: wrap;
+            height: 700px;
+            flex-direction: column;
+
+        }
+
+        .header, .footer {
+            background-color: gray;
+            flex: 1;
+            height: 100px;
+        }
+
+        .main{
+            flex: 5;
+            display: flex;
+        }
+        .sider-left,.sider-right {
+            flex: 1;
+            background-color: lightyellow;
+        }
+
+
+        .content {
+            flex: 4;
+            background-color: lightseagreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="holy-layout">
+        <div class="header">header</div>
+        <div class="main">
+            <div class="sider-left">sider-right</div>
+            <div class="content">content</div>
+            <div class="sider-right">sider-left</div>
+        </div>
+        <div class="footer">footer</div>
+    </div>
+</body>
+
+</html>

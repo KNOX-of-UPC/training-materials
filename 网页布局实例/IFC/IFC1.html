@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 1 margin padding boder 失效不计算入行高 */
+        .warp1 {
+            border: 5px solid red;
+            display: inline-block;
+        }
+
+        .text1 {
+            margin: 20px;
+            background: rgb(7, 250, 250);
+        }
+
+        .warp2 {
+            border: 5px solid green;
+            width: 200px;
+            text-align: center;
+        }
+
+        .text2 {
+            background: rgb(7, 250, 250);
+        }
+
+        /* end */
+        .warp3 {
+            border: 5px solid tomato;
+            width: 200px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+
+
+        .text32 {
+            background-color: lightpink;
+        }
+
+        .warp3 {
+            border: 5px solid red;
+            width: 200px;
+        }
+
+        .text3 {
+            background: lightseagreen;
+        }
+
+        .f-l {
+            float: left;
+        }
+
+        .warp4 {
+            width: 300px;
+            border: 5px solid red;
+            height: 20px;
+
+        }
+
+        .text4 {
+            background-color: limegreen;
+            width: 100px;
+            height: 20px;
+            display: inline-block;
+            margin: 0;
+            border: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .text5 {
+            background-color: orange;
+            width: 50px;
+            height: 10px;
+            display: inline-block;
+            font-size: smaller;
+            margin: 0;
+            border: 0;
+            padding: 0;
+        }
+
+        .warp6 {}
+
+        .warp6 p {
+            color: whitesmoke;
+            background: orange;
+            width: 200px;
+            line-height: 40px;
+            text-align: center;
+            margin: 30px;
+            font-size: 18px;
+        }
+
+        .warp6 em {
+            padding: 2px;
+            margin: 12px;
+            border-width: medium;
+            border-style: dashed;
+            line-height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>1.————————————————————————————————————————————————————————</div>
+    <div class="warp1">
+        <span class="text1">文本一</span>
+        <!-- sapn 行内元素 -->
+        <span class="text1">文本二</span>
+    </div>
+    <div class="warp2">
+        <span class="text2">文本一</span>
+        <span class="text2">文本二</span>
+    </div>
+    <div>2.————————————————————————————————————————————————————————</div>
+    <div class="warp3">
+        <span class="text31">文本一</span>
+        <span class="text31">文本二</span>
+    </div>
+    <div>3.__________________________________________________________</div>
+    <div class="warp3">
+        <span class="text3">这是文本1</span>
+        <span class="text3">这是文本2</span>
+        <span class="text3 f-l">这是文本3</span>
+        <span class="text32">这是文本4</span>
+    </div>
+    <div class="warp3" style="width: 150px;">
+        <span class="text3">这是文本1</span>
+        <span class="text3">这是文本2</span>
+        <span class="text3 f-l">这是文本3</span>
+        <span class="text32">这是文本4</span>
+    </div>
+    <div class="warp3" style="width: 250px;">
+        <span class="text3">这是文本1</span>
+        <span class="text3">这是文本2</span>
+        <span class="text3 f-l">这是文本3</span>
+        <span class="text32">这是文本4</span>
+    </div>
+    <div>4.__________________________________________________________</div>
+    <div class="warp4">
+        <div class="text5"></div>
+        <div class="text4"></div>
+        <div class="text5"></div>
+    </div>
+
+    <div class="warp4">
+        <div class="text5">12354</div>
+        <div class="text4">12354</div>
+        <div class="text5">31335</div>
+    </div>
+    <div>5.__________________________________________________________</div>
+    <div class="warp6">
+        <p>Several <em>emphasized words</em> appear
+            <strong>in this</strong> sentence, dear.</p>
+    </div>
+    <div class="warp6" >
+        <p style="width: 600px;">Several <em>emphasized words</em> appear
+            <strong>in this</strong> sentence, dear.</p>
+    </div>
+
+</body>
+
+</html>
